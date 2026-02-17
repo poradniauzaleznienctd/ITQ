@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Międzynarodowy Kwestionariusz Traumy (ITQ)</title>
+  <style>
+    :root{
+      --page-max: 980px;
+      --border: #000;
+      --bg: #f3f3f3;
+    }
+    body{
+      margin:0;
+      padding:24px 12px;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color:#000;
+    }
+    .page{
+      max-width: var(--page-max);
+      margin:0 auto;
+      background:#fff;
+      padding:28px 28px 32px;
+      border:1px solid #d7d7d7;
+      box-shadow: 0 2px 14px rgba(0,0,0,.06);
+    }
+    .small{
+      font-size:11px;
+      line-height:1.25;
+      margin:0 0 14px 0;
+    }
+    h1{
+      font-size:18px;
+      text-align:center;
+      margin: 0 0 14px 0;
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+    h1 span{
+      display:block;
+      font-weight:400;
+      margin-top:2px;
+    }
+    .instr{
+      font-size:14px;
+      line-height:1.35;
+      margin: 0 0 10px 0;
+    }
+    .label{
+      font-size:14px;
+      margin: 10px 0 6px 0;
+    }
+    .lined-textarea{
+      width:100%;
+      min-height:92px;
+      padding: 6px 8px;
+      font-size:14px;
+      line-height:22px;
+      resize: vertical;
+      border: none;
+      outline: none;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 21px,
+        rgba(0,0,0,.55) 22px,
+        rgba(0,0,0,.55) 23px
+      );
+      background-size: 100% 23px;
+      box-sizing: border-box;
+    }
+    .when{
+      margin-top: 6px;
+      font-size:14px;
+    }
+    .when .opt{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      margin: 2px 0;
+    }
+    .when input[type="radio"]{
+      margin-top:3px;
+    }
+    table.itq{
+      width:100%;
+      border-collapse:collapse;
+      margin: 12px 0 14px 0;
+      font-size:14px;
+    }
+    table.itq th, table.itq td{
+      border:2px solid var(--border);
+      vertical-align:middle;
+    }
+    table.itq thead th{
+      font-weight:400;
+      text-align:center;
+      padding: 8px 6px;
+    }
+    td.code{
+      width:46px;
+      text-align:center;
+      font-weight:400;
+      padding:8px 6px;
+      white-space:nowrap;
+    }
+    td.q{
+      padding:10px 10px;
+      line-height:1.25;
+    }
+    td.opt{
+      width:92px;
+      padding:0;
+      text-align:center;
+    }
+    /* radio as full-cell click */
+    td.opt input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+    td.opt label{
+      display:block;
+      width:100%;
+      height:100%;
+      padding: 18px 0;
+      cursor:pointer;
+      user-select:none;
+    }
+    td.opt input:checked + label{
+      background:#e6e6e6;
+      font-weight:700;
+    }
+    .section-title{
+      font-size:14px;
+      margin: 10px 0 6px 0;
+    }
+    .paragraph{
+      font-size:14px;
+      line-height:1.35;
+      margin: 10px 0;
+    }
+    .actions{
+      margin-top: 18px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    button{
+      font-size:16px;
+      padding: 10px 16px;
+      cursor:pointer;
+    }
+    .result{
+      margin-top: 18px;
+      padding: 14px 14px;
+      border: 2px solid #000;
+      font-size:14px;
+      line-height:1.35;
+      background:#fff;
+    }
+    .result h2{
+      font-size:16px;
+      margin:0 0 8px 0;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 16px;
+      margin-top: 10px;
+    }
+    .grid .box{
+      border:1px solid #000;
+      padding:10px;
+    }
+    .box h3{
+      margin:0 0 6px 0;
+      font-size:14px;
+    }
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    @media (max-width: 760px){
+      .page{ padding:20px 16px; }
+      td.opt{ width:auto; }
+      td.opt label{ padding: 14px 0; }
+      .grid{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="small">
+      Adaptacja i walidacja polska: Draczyńska, D., Mokros, Ł. Nowakowska, A., Anczewska, M., (2025). Polish Adaptation and validation of the International Trauma<br>
+      Questionnaire (ITQ) for PTSD and cPTSD according to ICD-11 in non-clinical and clinical samples. European Journal of Psychotraumatology. DOI:<br>
+      10.1080/20008066.2025.2468116 na podstawie: Cloitre, M., Shevlin M., Brewin, C.R., Bisson, J.I., Roberts, N.P., Maercker, A., Karatzias, T., Hyland, P. (2018). The<br>
+      International Trauma Questionnaire: Development of a self-report measure of ICD-11 PTSD and Complex PTSD. Acta Psychiatrica Scandinavica. 138(6), 536–546.<br>
+      https://doi.org/10.1111/acps.12956
+    </p>
+
+    <h1>
+      MIĘDZYNARODOWY KWESTIONARIUSZ TRAUMY
+      <span>(International Trauma Questionnaire, ITQ)</span>
+    </h1>
+
+    <p class="instr"><strong>Instrukcja:</strong> Proszę określić przeżycie, które najbardziej Pana/Panią niepokoi/dręczy/nęka, a następnie udzielić odpowiedzi na związane z nim pytania.</p>
+
+    <div class="label">Krótki opis doświadczenia:</div>
+    <textarea class="lined-textarea" id="traumaDesc" aria-label="Krótki opis doświadczenia"></textarea>
+
+    <div class="label">Kiedy to wydarzenie miało miejsce? (Proszę zakreślić jedną odpowiedź.)</div>
+    <div class="when" role="group" aria-label="Kiedy to wydarzenie miało miejsce?">
+      <div class="opt"><input type="radio" name="when" id="when_a" value="a"><label for="when_a">a.&nbsp;&nbsp;mniej niż 6 miesięcy temu</label></div>
+      <div class="opt"><input type="radio" name="when" id="when_b" value="b"><label for="when_b">b.&nbsp;&nbsp;6 do 12 miesięcy temu</label></div>
+      <div class="opt"><input type="radio" name="when" id="when_c" value="c"><label for="when_c">c.&nbsp;&nbsp;1 do 5 lat temu</label></div>
+      <div class="opt"><input type="radio" name="when" id="when_d" value="d"><label for="when_d">d.&nbsp;&nbsp;5 do 10 lat temu</label></div>
+      <div class="opt"><input type="radio" name="when" id="when_e" value="e"><label for="when_e">e.&nbsp;&nbsp;10 do 20 lat temu</label></div>
+      <div class="opt"><input type="radio" name="when" id="when_f" value="f"><label for="when_f">f.&nbsp;&nbsp;więcej niż 20 lat temu</label></div>
+    </div>
+
+    <p class="paragraph">
+      Poniżej wymienione są różne trudności, które ludzie czasem zgłaszają w odpowiedzi na traumatyczne lub stresujące wydarzenia życiowe. Proszę przeczytać je uważnie, a następnie zakreślić jedną z cyfr po prawej stronie wskazując jak bardzo uciążliwe było to dla Pana/Pani w ciągu ostatniego miesiąca.
+    </p>
+
+    <table class="itq" aria-label="Objawy PTSD (P1-P6)">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Wcale</th>
+          <th>Trochę</th>
+          <th>Umiarkowanie</th>
+          <th>Znacznie</th>
+          <th>Bardzo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="code">P1</td>
+          <td class="q">Czy miewa Pan/Pani niepokojące sny odtwarzające fragmenty Pana/Pani przeżycia/doświadczenia lub wyraźnie z nim powiązane?</td>
+          <td class="opt"><input type="radio" id="P1_0" name="P1" value="0"><label for="P1_0">0</label></td>
+          <td class="opt"><input type="radio" id="P1_1" name="P1" value="1"><label for="P1_1">1</label></td>
+          <td class="opt"><input type="radio" id="P1_2" name="P1" value="2"><label for="P1_2">2</label></td>
+          <td class="opt"><input type="radio" id="P1_3" name="P1" value="3"><label for="P1_3">3</label></td>
+          <td class="opt"><input type="radio" id="P1_4" name="P1" value="4"><label for="P1_4">4</label></td>
+        </tr>
+        <tr>
+          <td class="code">P2</td>
+          <td class="q">Czy doświadcza Pan/Pani pojawiania się w myślach wyrazistych obrazów lub wspomnień i ma Pan/Pani poczucie ponownego przeżywania tego wydarzenia?</td>
+          <td class="opt"><input type="radio" id="P2_0" name="P2" value="0"><label for="P2_0">0</label></td>
+          <td class="opt"><input type="radio" id="P2_1" name="P2" value="1"><label for="P2_1">1</label></td>
+          <td class="opt"><input type="radio" id="P2_2" name="P2" value="2"><label for="P2_2">2</label></td>
+          <td class="opt"><input type="radio" id="P2_3" name="P2" value="3"><label for="P2_3">3</label></td>
+          <td class="opt"><input type="radio" id="P2_4" name="P2" value="4"><label for="P2_4">4</label></td>
+        </tr>
+        <tr>
+          <td class="code">P3</td>
+          <td class="q">Czy unika Pan/Pani wewnętrznych przeżyć przypominających to wydarzenie (np. myśli, uczuć lub doznań fizycznych)?</td>
+          <td class="opt"><input type="radio" id="P3_0" name="P3" value="0"><label for="P3_0">0</label></td>
+          <td class="opt"><input type="radio" id="P3_1" name="P3" value="1"><label for="P3_1">1</label></td>
+          <td class="opt"><input type="radio" id="P3_2" name="P3" value="2"><label for="P3_2">2</label></td>
+          <td class="opt"><input type="radio" id="P3_3" name="P3" value="3"><label for="P3_3">3</label></td>
+          <td class="opt"><input type="radio" id="P3_4" name="P3" value="4"><label for="P3_4">4</label></td>
+        </tr>
+        <tr>
+          <td class="code">P4</td>
+          <td class="q">Czy unika Pan/Pani zewnętrznych sytuacji przypominających to wydarzenie (np. ludzi, miejsc, rozmów, przedmiotów, czynności lub sytuacji)?</td>
+          <td class="opt"><input type="radio" id="P4_0" name="P4" value="0"><label for="P4_0">0</label></td>
+          <td class="opt"><input type="radio" id="P4_1" name="P4" value="1"><label for="P4_1">1</label></td>
+          <td class="opt"><input type="radio" id="P4_2" name="P4" value="2"><label for="P4_2">2</label></td>
+          <td class="opt"><input type="radio" id="P4_3" name="P4" value="3"><label for="P4_3">3</label></td>
+          <td class="opt"><input type="radio" id="P4_4" name="P4" value="4"><label for="P4_4">4</label></td>
+        </tr>
+        <tr>
+          <td class="code">P5</td>
+          <td class="q">Czy jest Pan/Pani bardzo czujny/ czujna, ostrożny/ ostrożna lub w stałej gotowości?</td>
+          <td class="opt"><input type="radio" id="P5_0" name="P5" value="0"><label for="P5_0">0</label></td>
+          <td class="opt"><input type="radio" id="P5_1" name="P5" value="1"><label for="P5_1">1</label></td>
+          <td class="opt"><input type="radio" id="P5_2" name="P5" value="2"><label for="P5_2">2</label></td>
+          <td class="opt"><input type="radio" id="P5_3" name="P5" value="3"><label for="P5_3">3</label></td>
+          <td class="opt"><input type="radio" id="P5_4" name="P5" value="4"><label for="P5_4">4</label></td>
+        </tr>
+        <tr>
+          <td class="code">P6</td>
+          <td class="q">Czy czuje się Pan/Pani pobudzony/pobudzona i łatwo Pana/Panią przestraszyć?</td>
+          <td class="opt"><input type="radio" id="P6_0" name="P6" value="0"><label for="P6_0">0</label></td>
+          <td class="opt"><input type="radio" id="P6_1" name="P6" value="1"><label for="P6_1">1</label></td>
+          <td class="opt"><input type="radio" id="P6_2" name="P6" value="2"><label for="P6_2">2</label></td>
+          <td class="opt"><input type="radio" id="P6_3" name="P6" value="3"><label for="P6_3">3</label></td>
+          <td class="opt"><input type="radio" id="P6_4" name="P6" value="4"><label for="P6_4">4</label></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-title">Czy w ciągu ostatniego miesiąca trudności wymienione powyżej:</div>
+
+    <table class="itq" aria-label="Upośledzenie funkcjonowania PTSD (P7-P9)">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Wcale</th>
+          <th>Trochę</th>
+          <th>Umiarkowanie</th>
+          <th>Znacznie</th>
+          <th>Bardzo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="code">P7</td>
+          <td class="q">Miały wpływ na Pana/Pani relacje lub życie towarzyskie?</td>
+          <td class="opt"><input type="radio" id="P7_0" name="P7" value="0"><label for="P7_0">0</label></td>
+          <td class="opt"><input type="radio" id="P7_1" name="P7" value="1"><label for="P7_1">1</label></td>
+          <td class="opt"><input type="radio" id="P7_2" name="P7" value="2"><label for="P7_2">2</label></td>
+          <td class="opt"><input type="radio" id="P7_3" name="P7" value="3"><label for="P7_3">3</label></td>
+          <td class="opt"><input type="radio" id="P7_4" name="P7" value="4"><label for="P7_4">4</label></td>
+        </tr>
+        <tr>
+          <td class="code">P8</td>
+          <td class="q">Miały wpływ na Pana/Pani pracę lub zdolność do pracy?</td>
+          <td class="opt"><input type="radio" id="P8_0" name="P8" value="0"><label for="P8_0">0</label></td>
+          <td class="opt"><input type="radio" id="P8_1" name="P8" value="1"><label for="P8_1">1</label></td>
+          <td class="opt"><input type="radio" id="P8_2" name="P8" value="2"><label for="P8_2">2</label></td>
+          <td class="opt"><input type="radio" id="P8_3" name="P8" value="3"><label for="P8_3">3</label></td>
+          <td class="opt"><input type="radio" id="P8_4" name="P8" value="4"><label for="P8_4">4</label></td>
+        </tr>
+        <tr>
+          <td class="code">P9</td>
+          <td class="q">Miały wpływ na jakikolwiek inny, ważny obszar Pana/Pani życia taki jak: rodzicielstwo, chodzenie do szkoły, na studia lub inne ważne zajęcia?</td>
+          <td class="opt"><input type="radio" id="P9_0" name="P9" value="0"><label for="P9_0">0</label></td>
+          <td class="opt"><input type="radio" id="P9_1" name="P9" value="1"><label for="P9_1">1</label></td>
+          <td class="opt"><input type="radio" id="P9_2" name="P9" value="2"><label for="P9_2">2</label></td>
+          <td class="opt"><input type="radio" id="P9_3" name="P9" value="3"><label for="P9_3">3</label></td>
+          <td class="opt"><input type="radio" id="P9_4" name="P9" value="4"><label for="P9_4">4</label></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="paragraph">
+      Poniżej wymienione są różne trudności wskazywane przez osoby, które doświadczyły traumatycznych lub stresujących wydarzeń życiowych. Stwierdzenia dotyczą tego, jak się <u>zazwyczaj</u> Pan/Pani czuje, jak <u>zazwyczaj</u> myśli Pan/Pani o sobie i w jaki sposób <u>zazwyczaj</u> odnosi się Pan/Pani do innych. Proszę odpowiedzieć na nie zastanawiając się w jakim stopniu każde z nich dotyczy Pana/Pani.
+    </p>
+
+    <div class="section-title">Jak bardzo prawdziwe jest to stwierdzenie w stosunku do Pana/Pani?</div>
+
+    <table class="itq" aria-label="Objawy DSO (C1-C6)">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Wcale</th>
+          <th>Trochę</th>
+          <th>Umiarkowanie</th>
+          <th>Znacznie</th>
+          <th>Bardzo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="code">C1</td>
+          <td class="q">Kiedy jestem zdenerwowany/ zdenerwowana, dużo czasu zajmuje mi uspokojenie się.</td>
+          <td class="opt"><input type="radio" id="C1_0" name="C1" value="0"><label for="C1_0">0</label></td>
+          <td class="opt"><input type="radio" id="C1_1" name="C1" value="1"><label for="C1_1">1</label></td>
+          <td class="opt"><input type="radio" id="C1_2" name="C1" value="2"><label for="C1_2">2</label></td>
+          <td class="opt"><input type="radio" id="C1_3" name="C1" value="3"><label for="C1_3">3</label></td>
+          <td class="opt"><input type="radio" id="C1_4" name="C1" value="4"><label for="C1_4">4</label></td>
+        </tr>
+        <tr>
+          <td class="code">C2</td>
+          <td class="q">Czuję się odrętwiały/ odrętwiała emocjonalnie lub zablokowany/ zablokowana.</td>
+          <td class="opt"><input type="radio" id="C2_0" name="C2" value="0"><label for="C2_0">0</label></td>
+          <td class="opt"><input type="radio" id="C2_1" name="C2" value="1"><label for="C2_1">1</label></td>
+          <td class="opt"><input type="radio" id="C2_2" name="C2" value="2"><label for="C2_2">2</label></td>
+          <td class="opt"><input type="radio" id="C2_3" name="C2" value="3"><label for="C2_3">3</label></td>
+          <td class="opt"><input type="radio" id="C2_4" name="C2" value="4"><label for="C2_4">4</label></td>
+        </tr>
+        <tr>
+          <td class="code">C3</td>
+          <td class="q">Czuję się jakby nigdy nic mi się nie udawało.</td>
+          <td class="opt"><input type="radio" id="C3_0" name="C3" value="0"><label for="C3_0">0</label></td>
+          <td class="opt"><input type="radio" id="C3_1" name="C3" value="1"><label for="C3_1">1</label></td>
+          <td class="opt"><input type="radio" id="C3_2" name="C3" value="2"><label for="C3_2">2</label></td>
+          <td class="opt"><input type="radio" id="C3_3" name="C3" value="3"><label for="C3_3">3</label></td>
+          <td class="opt"><input type="radio" id="C3_4" name="C3" value="4"><label for="C3_4">4</label></td>
+        </tr>
+        <tr>
+          <td class="code">C4</td>
+          <td class="q">Czuję się bezwartościowy/ bezwartościowa.</td>
+          <td class="opt"><input type="radio" id="C4_0" name="C4" value="0"><label for="C4_0">0</label></td>
+          <td class="opt"><input type="radio" id="C4_1" name="C4" value="1"><label for="C4_1">1</label></td>
+          <td class="opt"><input type="radio" id="C4_2" name="C4" value="2"><label for="C4_2">2</label></td>
+          <td class="opt"><input type="radio" id="C4_3" name="C4" value="3"><label for="C4_3">3</label></td>
+          <td class="opt"><input type="radio" id="C4_4" name="C4" value="4"><label for="C4_4">4</label></td>
+        </tr>
+        <tr>
+          <td class="code">C5</td>
+          <td class="q">Czuję się zdystansowany/ zdystansowana lub odcięty/ odcięta od ludzi.</td>
+          <td class="opt"><input type="radio" id="C5_0" name="C5" value="0"><label for="C5_0">0</label></td>
+          <td class="opt"><input type="radio" id="C5_1" name="C5" value="1"><label for="C5_1">1</label></td>
+          <td class="opt"><input type="radio" id="C5_2" name="C5" value="2"><label for="C5_2">2</label></td>
+          <td class="opt"><input type="radio" id="C5_3" name="C5" value="3"><label for="C5_3">3</label></td>
+          <td class="opt"><input type="radio" id="C5_4" name="C5" value="4"><label for="C5_4">4</label></td>
+        </tr>
+        <tr>
+          <td class="code">C6</td>
+          <td class="q">Trudno jest mi być blisko emocjonalnie z ludźmi.</td>
+          <td class="opt"><input type="radio" id="C6_0" name="C6" value="0"><label for="C6_0">0</label></td>
+          <td class="opt"><input type="radio" id="C6_1" name="C6" value="1"><label for="C6_1">1</label></td>
+          <td class="opt"><input type="radio" id="C6_2" name="C6" value="2"><label for="C6_2">2</label></td>
+          <td class="opt"><input type="radio" id="C6_3" name="C6" value="3"><label for="C6_3">3</label></td>
+          <td class="opt"><input type="radio" id="C6_4" name="C6" value="4"><label for="C6_4">4</label></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="paragraph">
+      Proszę określić czy w ciągu ostatniego miesiąca, powyższe trudności dotyczące emocji, przekonań na swój temat oraz relacji z innymi wpływały na:
+    </p>
+
+    <table class="itq" aria-label="Upośledzenie funkcjonowania DSO (C7-C9)">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Wcale</th>
+          <th>Trochę</th>
+          <th>Umiarkowanie</th>
+          <th>Znacznie</th>
+          <th>Bardzo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="code">C7</td>
+          <td class="q">Powodowały niepokój lub cierpienie w związku z Pana/Pani relacjami lub życiem towarzyskim?</td>
+          <td class="opt"><input type="radio" id="C7_0" name="C7" value="0"><label for="C7_0">0</label></td>
+          <td class="opt"><input type="radio" id="C7_1" name="C7" value="1"><label for="C7_1">1</label></td>
+          <td class="opt"><input type="radio" id="C7_2" name="C7" value="2"><label for="C7_2">2</label></td>
+          <td class="opt"><input type="radio" id="C7_3" name="C7" value="3"><label for="C7_3">3</label></td>
+          <td class="opt"><input type="radio" id="C7_4" name="C7" value="4"><label for="C7_4">4</label></td>
+        </tr>
+        <tr>
+          <td class="code">C8</td>
+          <td class="q">Miały wpływ na Pana/Pani pracę lub zdolność do pracy?</td>
+          <td class="opt"><input type="radio" id="C8_0" name="C8" value="0"><label for="C8_0">0</label></td>
+          <td class="opt"><input type="radio" id="C8_1" name="C8" value="1"><label for="C8_1">1</label></td>
+          <td class="opt"><input type="radio" id="C8_2" name="C8" value="2"><label for="C8_2">2</label></td>
+          <td class="opt"><input type="radio" id="C8_3" name="C8" value="3"><label for="C8_3">3</label></td>
+          <td class="opt"><input type="radio" id="C8_4" name="C8" value="4"><label for="C8_4">4</label></td>
+        </tr>
+        <tr>
+          <td class="code">C9</td>
+          <td class="q">Miały wpływ na jakikolwiek inny, ważny obszar Pana/Pani życia taki jak: rodzicielstwo, chodzenie do szkoły, na studia lub inne ważne zajęcia?</td>
+          <td class="opt"><input type="radio" id="C9_0" name="C9" value="0"><label for="C9_0">0</label></td>
+          <td class="opt"><input type="radio" id="C9_1" name="C9" value="1"><label for="C9_1">1</label></td>
+          <td class="opt"><input type="radio" id="C9_2" name="C9" value="2"><label for="C9_2">2</label></td>
+          <td class="opt"><input type="radio" id="C9_3" name="C9" value="3"><label for="C9_3">3</label></td>
+          <td class="opt"><input type="radio" id="C9_4" name="C9" value="4"><label for="C9_4">4</label></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="actions">
+      <button type="button" id="calcBtn">Oblicz wynik</button>
+    </div>
+
+    <div class="result" id="result" style="display:none">
+      <h2>Wynik</h2>
+      <div id="diag"></div>
+
+      <div class="grid">
+        <div class="box">
+          <h3>PTSD</h3>
+          <div>Re (P1+P2): <span class="mono" id="reScore"></span></div>
+          <div>Av (P3+P4): <span class="mono" id="avScore"></span></div>
+          <div>Th (P5+P6): <span class="mono" id="thScore"></span></div>
+          <div><strong>Wynik PTSD</strong> = Re + Av + Th: <span class="mono" id="ptsdTotal"></span></div>
+        </div>
+        <div class="box">
+          <h3>DSO / cPTSD</h3>
+          <div>AD (C1+C2): <span class="mono" id="adScore"></span></div>
+          <div>NSC (C3+C4): <span class="mono" id="nscScore"></span></div>
+          <div>DR (C5+C6): <span class="mono" id="drScore"></span></div>
+          <div><strong>Wynik cPTSD</strong> = AD + NSC + DR: <span class="mono" id="cptsdTotal"></span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+(function(){
+  function getVal(name){
+    const el = document.querySelector('input[name="'+name+'"]:checked');
+    if(!el) return null;
+    return parseInt(el.value,10);
+  }
+
+  function requireAll(names){
+    const missing = [];
+    for(const n of names){
+      if(document.querySelector('input[name="'+n+'"]:checked') === null){
+        missing.push(n);
+      }
+    }
+    return missing;
+  }
+
+  document.getElementById('calcBtn').addEventListener('click', function(){
+    // wymagane: wybór czasu + wszystkie P i C
+    const when = document.querySelector('input[name="when"]:checked');
+    const allItems = ["P1","P2","P3","P4","P5","P6","P7","P8","P9","C1","C2","C3","C4","C5","C6","C7","C8","C9"];
+    const missing = requireAll(allItems);
+    if(!when){
+      alert('Proszę zakreślić jedną odpowiedź w pytaniu: "Kiedy to wydarzenie miało miejsce?"');
+      return;
+    }
+    if(missing.length){
+      alert('Proszę udzielić odpowiedzi na wszystkie pytania: ' + missing.join(', '));
+      return;
+    }
+
+    const P1=getVal("P1"), P2=getVal("P2"), P3=getVal("P3"), P4=getVal("P4"), P5=getVal("P5"), P6=getVal("P6"),
+          P7=getVal("P7"), P8=getVal("P8"), P9=getVal("P9");
+    const C1=getVal("C1"), C2=getVal("C2"), C3=getVal("C3"), C4=getVal("C4"), C5=getVal("C5"), C6=getVal("C6"),
+          C7=getVal("C7"), C8=getVal("C8"), C9=getVal("C9");
+
+    // Dimensional scores
+    const Re = P1 + P2;
+    const Av = P3 + P4;
+    const Th = P5 + P6;
+    const PTSD_total = Re + Av + Th;
+
+    const AD = C1 + C2;
+    const NSC = C3 + C4;
+    const DR = C5 + C6;
+    const CPTSD_total = AD + NSC + DR;
+
+    // Diagnostic criteria (>=2)
+    const Re_dx = (P1>=2 || P2>=2);
+    const Av_dx = (P3>=2 || P4>=2);
+    const Th_dx = (P5>=2 || P6>=2);
+    const PTSDFI = (P7>=2 || P8>=2 || P9>=2);
+    const PTSD_dx = (Re_dx && Av_dx && Th_dx && PTSDFI);
+
+    const AD_dx  = (C1>=2 || C2>=2);
+    const NSC_dx = (C3>=2 || C4>=2);
+    const DR_dx  = (C5>=2 || C6>=2);
+    const DSOFI  = (C7>=2 || C8>=2 || C9>=2);
+    const DSO_dx = (AD_dx && NSC_dx && DR_dx && DSOFI);
+
+    let diagnosisText = "";
+    if(PTSD_dx && DSO_dx){
+      diagnosisText = "<strong>cPTSD:</strong> spełnia kryteria diagnostyczne cPTSD.";
+    }else if(PTSD_dx && !DSO_dx){
+      diagnosisText = "<strong>PTSD:</strong> spełnia kryteria diagnostyczne PTSD.";
+    }else{
+      diagnosisText = "<strong>PTSD / cPTSD:</strong> nie spełnia kryteriów diagnostycznych PTSD ani cPTSD.";
+    }
+
+    document.getElementById('diag').innerHTML = "<div style='margin-bottom:10px'>" + diagnosisText + "</div>";
+
+    document.getElementById('reScore').textContent = Re;
+    document.getElementById('avScore').textContent = Av;
+    document.getElementById('thScore').textContent = Th;
+    document.getElementById('ptsdTotal').textContent = PTSD_total;
+
+    document.getElementById('adScore').textContent = AD;
+    document.getElementById('nscScore').textContent = NSC;
+    document.getElementById('drScore').textContent = DR;
+    document.getElementById('cptsdTotal').textContent = CPTSD_total;
+const res = document.getElementById('result');
+    res.style.display = "block";
+    res.scrollIntoView({behavior:"smooth", block:"start"});
+  });
+})();
+</script>
+</body>
+</html>
